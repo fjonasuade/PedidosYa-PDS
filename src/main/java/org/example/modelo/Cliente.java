@@ -10,4 +10,5 @@ public class Cliente {
     }
 
     public String getEmail() { return email; }
+    public String getNombre() { return nombre; }
 }

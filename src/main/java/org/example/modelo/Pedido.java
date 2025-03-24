@@ -12,7 +12,7 @@ public class Pedido {
     private double descuento;
     private Cliente cliente;
 
-    public Pedido() {
+    public Pedido(Cliente cliente) {
         this.numeroOrden = contadorPedidos++;
         this.estado = "En espera";
         this.descuento = 0;
@@ -35,4 +35,6 @@ public class Pedido {
     public int getNumeroOrden() { return numeroOrden; }
     public double getDescuento() { return descuento; }
     public Cliente getCliente() { return cliente; }
+
+    public List<Plato> getPlatos() { return platos; }
 }

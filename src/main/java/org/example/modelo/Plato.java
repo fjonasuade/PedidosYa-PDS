@@ -14,5 +14,7 @@ public class Plato {
     }
 
     public String getNombre() { return nombre; }
+    public String getDescripcion() { return descripcion; }
     public double getPrecio() { return precio; }
+    public boolean contieneAlergenos() { return contieneAlergenos; }
 }

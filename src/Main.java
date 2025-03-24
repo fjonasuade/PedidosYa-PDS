@@ -1,28 +1,44 @@
 import main.java.org.example.controller.PagoController;
 import main.java.org.example.controller.PedidoController;
-import main.java.org.example.modelo.Cliente;
-import main.java.org.example.modelo.Pago;
-import main.java.org.example.modelo.Pedido;
-import main.java.org.example.modelo.Plato;
+import main.java.org.example.modelo.*;
+import main.java.org.example.view.ClienteInterface;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        PedidoController pedidoCtrl = new PedidoController();
-        PagoController pagoCtrl = new PagoController();
-        Cliente cliente = new Cliente("Juan Pérez", "juan@example.com");
+            // Crear objetos
+            Menu menu = new Menu();
+            PedidoController pedidoCtrl = new PedidoController();
+            Cliente cliente = new Cliente("Juan Pérez", "juan@example.com");
 
-        Pedido pedido = pedidoCtrl.crearPedido();
-        Plato plato1 = new Plato("Pizza", "Pizza de pepperoni", 12.99, false);
-        pedidoCtrl.agregarPlato(pedido, plato1);
+            // Crear categorías y platos
+            Categoria entradas = new Categoria("Entradas");
+            entradas.agregarPlato(new Plato("Sopa de Pollo", "Sopa con trozos de pollo", 5.99, false));
+            Categoria platosPrincipales = new Categoria("Platos Principales");
+            platosPrincipales.agregarPlato(new Plato("Pizza", "Pizza de pepperoni", 12.99, false));
+            Categoria postres = new Categoria("Postres");
+            postres.agregarPlato(new Plato("Tiramisú", "Postre italiano", 4.99, true));
+            Categoria bebidas = new Categoria("Bebidas");
+            bebidas.agregarPlato(new Plato("Coca Cola", "Refresco", 1.50, false));
 
-        System.out.println("Estado del pedido: " + pedido.getEstado());
-        pedidoCtrl.aplicarDescuento(pedido, 10);
-        pedidoCtrl.cambiarEstadoPedido(pedido, "En preparación", cliente);
-        System.out.println("Nuevo estado: " + pedido.getEstado());
+            menu.agregarCategoria(entradas);
+            menu.agregarCategoria(platosPrincipales);
+            menu.agregarCategoria(postres);
+            menu.agregarCategoria(bebidas);
 
-        Pago pago = new Pago("Tarjeta de Crédito", 20.00);
-        pagoCtrl.procesarPago(pedido, pago, cliente);
-    }
+            // Interfaz de cliente
+            ClienteInterface clienteInterface = new ClienteInterface();
+            Pedido pedido = pedidoCtrl.crearPedido(cliente);
+
+            // El cliente selecciona platos
+            clienteInterface.seleccionarPlato(menu, pedido);
+            clienteInterface.seleccionarPlato(menu, pedido);
+
+            // Realizar pago
+            clienteInterface.realizarPago(pedido);
+
+            // Mostrar estado del pedido
+            pedidoCtrl.mostrarEstadoPedido(pedido);
+        }
 }

@@ -6,10 +6,10 @@ import main.java.org.example.modelo.Pago;
 import main.java.org.example.modelo.Pedido;
 
 public class PagoController {
-    public boolean procesarPago(Pedido pedido, Pago pago, Cliente cliente) {
+    public boolean procesarPago(Pedido pedido, Pago pago) {
         if (pago.getMonto() >= pedido.getTotal()) {
             System.out.println("Pago exitoso con " + pago.getMetodo() + " por $" + pedido.getTotal());
-            Factura.generarFactura(pedido, cliente);
+            Factura.generarFactura(pedido);
             return true;
         } else {
             System.out.println("Pago rechazado. Monto insuficiente.");
