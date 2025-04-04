@@ -1,6 +1,6 @@
 package main.java.org.example.modelo;
 
-public class PagoEfectivo implements IPago{
+public class PagoEfectivo implements IPago {
     private double monto;
 
     public PagoEfectivo(double monto) {
@@ -10,7 +10,7 @@ public class PagoEfectivo implements IPago{
     @Override
     public boolean procesarPago(double monto) {
         // Lógica para procesar pago en efectivo
-        return true;
+        return this.monto >= monto;
     }
 
     @Override

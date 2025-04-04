@@ -37,4 +37,8 @@ public class Pedido {
     public Cliente getCliente() { return cliente; }
 
     public List<Plato> getPlatos() { return platos; }
+
+    public void generarFactura() {
+        Factura.generarFactura(this);
+    }
 }
