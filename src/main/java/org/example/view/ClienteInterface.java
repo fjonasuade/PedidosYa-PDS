@@ -14,7 +14,7 @@ public class ClienteInterface {
     public void seleccionarPlato(Menu menu, Pedido pedido) {
         System.out.println("Selecciona una categoría:");
         for (int i = 0; i < menu.getCategorias().size(); i++) {
-            System.out.println((i + 1) + ". " + menu.getCategorias().get(i).getPlatos().get(0).getNombre()); // Just display the category names
+            System.out.println((i + 1) + ". " + menu.getCategorias().get(i).getPlatos().get(0).getNombre());
         }
         int categoriaSeleccionada = scanner.nextInt();
         Categoria categoria = menu.getCategorias().get(categoriaSeleccionada - 1);
@@ -33,20 +33,23 @@ public class ClienteInterface {
     }
 
     public void realizarPago(Pedido pedido) {
-        System.out.println("Método de pago: 1. Tarjeta de Crédito 2. Tarjeta de Débito 3. Efectivo 4. PayPal");
+        System.out.println("Método de pago: 1. Tarjeta de Crédito 2. Tarjeta de Débito 3. MercadoPago 4. PayPal 5. Transferencia Bancaria");
         int metodoSeleccionado = scanner.nextInt();
-        String metodo = "";
-        switch (metodoSeleccionado) {
-            case 1: metodo = "Tarjeta de Crédito"; break;
-            case 2: metodo = "Tarjeta de Débito"; break;
-            case 3: metodo = "Efectivo"; break;
-            case 4: metodo = "PayPal"; break;
-        }
+        IPago pago = null;
         System.out.println("Monto a pagar: $" + pedido.getTotal());
         System.out.println("Ingrese el monto del pago:");
         double monto = scanner.nextDouble();
-        Pago pago = new Pago(metodo, monto);
 
-        pagoCtrl.procesarPago(pedido, pago);
+        switch (metodoSeleccionado) {
+            case 1: pago = new PagoTarjetaCredito(monto); break;
+            case 2: pago = new PagoTarjetaDebito(monto); break;
+            case 3: pago = new PagoMercadoPago(monto); break;
+        }
+
+        if (pago != null) {
+            pagoCtrl.procesarPago(pedido, pago);
+        } else {
+            System.out.println("Método de pago no válido.");
+        }
     }
 }
