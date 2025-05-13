@@ -1,6 +1,6 @@
 package main.java.org.example.modelo;
 
-public class Plato {
+public class Plato implements MenuItem {
     private String nombre;
     private String descripcion;
     private double precio;
@@ -13,8 +13,24 @@ public class Plato {
         this.contieneAlergenos = contieneAlergenos;
     }
 
+    @Override
     public String getNombre() { return nombre; }
+
+    @Override
     public String getDescripcion() { return descripcion; }
+
+    @Override
     public double getPrecio() { return precio; }
+
     public boolean contieneAlergenos() { return contieneAlergenos; }
+
+    @Override
+    public void print() {
+        System.out.printf("    • %s – $%.2f (%s)%s\n",
+            nombre,
+            precio,
+            descripcion,
+            contieneAlergenos ? " [¡Alérgenos!]" : ""
+        );
+    }
 }
