@@ -53,3 +53,29 @@ public class ClienteInterface {
         }
     }
 }
+
+/*
+package main.java.org.example.view;
+
+import main.java.org.example.controller.PedidoController;
+import main.java.org.example.modelo.Pedido;
+
+import java.util.Scanner;
+
+public class ClienteInterface {
+    private Scanner scanner = new Scanner(System.in);
+    private PedidoController pedidoCtrl = new PedidoController();
+
+    public void realizarPago(Pedido pedido) {
+        // Antes del pago, ofrecer cupón
+        System.out.println("¿Tenés un cupón de descuento? (s/n)");
+        if (scanner.next().equalsIgnoreCase("s")) {
+            System.out.println("Ingrese código de cupón:");
+            String codigo = scanner.next();
+            System.out.println(pedidoCtrl.aplicarCupon(pedido, codigo));
+        }
+
+        // Luego proceso de pago existente...
+    }
+}
+ */

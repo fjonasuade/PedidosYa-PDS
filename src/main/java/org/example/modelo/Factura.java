@@ -1,11 +1,8 @@
+// Factura.java (simple string formatter)
 package main.java.org.example.modelo;
-
 public class Factura {
-    public static void generarFactura(Pedido pedido) {
-        System.out.println("Factura generada para: " + pedido.getCliente().getEmail());
-        System.out.println("Número de Orden: " + pedido.getNumeroOrden());
-        System.out.println("Total: $" + pedido.getTotal());
-        System.out.println("Descuento aplicado: $" + pedido.getDescuento());
-        System.out.println("Estado del pedido: " + pedido.getEstado());
+    public static String generar(Pedido pedido) {
+        return String.format("Factura #%s - Cliente: %s - Total: $%.2f",
+                pedido.numeroOrden, pedido.getCliente().getNombre(), pedido.getTotal());
     }
 }
