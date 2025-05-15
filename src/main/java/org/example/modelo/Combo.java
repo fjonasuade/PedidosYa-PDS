@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Categoria implements MenuItem {
+public class Combo implements MenuItem {
     private String nombre;
+    private String descripcion;
+    private double precioFijo;
     private List<MenuItem> items = new ArrayList<>();
 
-    public Categoria(String nombre) {
+    public Combo(String nombre, String descripcion, double precioFijo) {
         this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precioFijo = precioFijo;
     }
 
     public void agregarItem(MenuItem item) {
@@ -27,19 +31,19 @@ public class Categoria implements MenuItem {
 
     @Override
     public String getDescripcion() {
-        return "Categoría: " + nombre;
+        return descripcion;
     }
 
     @Override
     public double getPrecio() {
-        // Suma de precios de todos los elementos contenidos
-        return items.stream().mapToDouble(MenuItem::getPrecio).sum();
+        return precioFijo; // Retorna el precio fijo del combo
     }
 
     @Override
     public void print() {
-        System.out.println("== " + nombre + " ==");
-        items.forEach(MenuItem::print); // Llama al método `print` de cada elemento
+        System.out.println("== Combo: " + nombre + " ==");
+        System.out.println(descripcion + " - Precio: $" + precioFijo);
+        items.forEach(MenuItem::print); // Imprime los elementos del combo
     }
 
     public List<MenuItem> getItems() {

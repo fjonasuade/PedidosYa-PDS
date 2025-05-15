@@ -1,17 +1,14 @@
+// PagoController.java (Singleton)
 package main.java.org.example.controller;
-
-import main.java.org.example.modelo.IPago;
-import main.java.org.example.modelo.Pedido;
-
+import main.java.org.example.modelo.*;
 public class PagoController {
-    public boolean procesarPago(Pedido pedido, IPago pago) {
-        if (pago.procesarPago(pedido.getTotal())) {
-            System.out.println("Pago exitoso con " + pago.getMetodo() + " por $" + pedido.getTotal());
-            pedido.generarFactura();
-            return true;
-        } else {
-            System.out.println("Pago rechazado. Monto insuficiente.");
-            return false;
-        }
+    private static final PagoController INSTANCE = new PagoController();
+    private PagoController() {}  // Constructor privado para Singleton
+    public static PagoController getInstance() { return INSTANCE; }
+
+    public boolean procesarPago(Pedido p, IPago pago) {
+        boolean ok = pago.procesarPago(p.getTotal());  // Cambio de pagar a procesarPago
+        if (ok) p.avanzar();
+        return ok;
     }
 }

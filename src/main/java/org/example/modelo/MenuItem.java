@@ -4,5 +4,5 @@ public interface MenuItem {
     String getNombre();
     String getDescripcion();
     double getPrecio();
-    void print();
+    void print(); // Método para impresión polimórfica
 }

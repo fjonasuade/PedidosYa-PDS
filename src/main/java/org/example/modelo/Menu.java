@@ -4,8 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-    private List<Categoria> categorias = new ArrayList<>();
+    private static Menu instancia; // Instancia única
+    private List<Categoria> categorias;
 
-    public void agregarCategoria(Categoria categoria) { categorias.add(categoria); }
-    public List<Categoria> getCategorias() { return categorias; }
+    private Menu() {
+        categorias = new ArrayList<>();
+    }
+
+    public static Menu getInstancia() {
+        if (instancia == null) {
+            instancia = new Menu();
+        }
+        return instancia;
+    }
+
+    public void agregarCategoria(Categoria categoria) {
+        categorias.add(categoria);
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void imprimirMenu() {
+    }
 }
