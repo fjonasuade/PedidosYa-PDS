@@ -1,139 +1,103 @@
 package main.java.org.example.view;
 
 import main.java.org.example.controller.PedidoController;
+import main.java.org.example.controller.PagoController;
+import main.java.org.example.controller.ReporteController;
 import main.java.org.example.modelo.*;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+
 import java.util.Scanner;
 
 public class EmpleadoInterface {
     private Scanner scanner = new Scanner(System.in);
-    private PedidoController pedidoCtrl = PedidoController.getInstance();
-    private Map<String, ICupon> cupones = new HashMap<>();
+    private ReporteController reporteCtrl = new ReporteController();
+    private PedidoController pedidoCtrl = new PedidoController();
+    private PagoController pagoCtrl = new PagoController();
 
-    public void mostrarPedidos(List<Pedido> pedidos) {
-        System.out.println("\n*** PEDIDOS ACTIVOS ***");
-        for (int i = 0; i < pedidos.size(); i++) {
-            Pedido pedido = pedidos.get(i);
-            System.out.printf("%d) Cliente: %s - Total: $%.2f - Estado: %s\n",
-                i + 1,
-                pedido.getCliente().getNombre(),
-                pedido.getTotal(),
-                pedido.getEstado().getClass().getSimpleName());
+    public void generarReporte() {
+        System.out.println("Generar reporte: 1. Diario 2. Semanal 3. Mensual 4. Anual");
+        int opcion = scanner.nextInt();
+        switch (opcion) {
+            case 1: reporteCtrl.generarReporteDiario(); break;
+            case 2: reporteCtrl.generarReporteSemanal(); break;
+            case 3: reporteCtrl.generarReporteMensual(); break;
+            case 4: reporteCtrl.generarReporteAnual(); break;
+            default: System.out.println("Opción no válida.");
         }
     }
 
-    public void actualizarEstadoPedido(Pedido pedido) {
-        System.out.println("Actualizando estado de pedido para " + pedido.getCliente().getNombre());
-        pedido.avanzar();
-        pedido.notificar("Estado actualizado");
-        System.out.println("Estado actualizado a: " + pedido.getEstado().getClass().getSimpleName());
-    }
-
-    public void gestionarMenu(Menu menu) {
-        System.out.println("\n*** GESTIONAR MENÚ ***");
-        System.out.println("1) Ver menú");
-        System.out.println("2) Agregar categoría");
-        System.out.println("3) Agregar plato a categoría");
-
+    public void modificarPlatos() {
+        System.out.println("Modificar platos: 1. Agregar 2. Eliminar");
         int opcion = scanner.nextInt();
-        scanner.nextLine(); // Consumir salto de línea
+        scanner.nextLine(); // Consumir nueva línea
 
-        switch(opcion) {
+        switch (opcion) {
             case 1:
-                menu.imprimirMenu();
+                System.out.println("Ingrese nombre del plato:");
+                String nombre = scanner.nextLine();
+                System.out.println("Ingrese descripción del plato:");
+                String descripcion = scanner.nextLine();
+                System.out.println("Ingrese precio del plato:");
+                double precio = scanner.nextDouble();
+                System.out.println("¿Contiene alérgenos? (true/false):");
+                boolean contieneAlergenos = scanner.nextBoolean();
+                Plato nuevoPlato = new Plato(nombre, descripcion, precio, contieneAlergenos);
+                BaseDeDatos.agregarPlato(nuevoPlato);
+                System.out.println("Plato agregado: " + nombre);
                 break;
             case 2:
-                System.out.print("Nombre de la nueva categoría: ");
-                String nombreCategoria = scanner.nextLine();
-                menu.agregarCategoria(new Categoria(nombreCategoria));
-                System.out.println("Categoría agregada con éxito");
+                System.out.println("Ingrese nombre del plato a eliminar:");
+                String nombreEliminar = scanner.nextLine();
+                BaseDeDatos.eliminarPlato(nombreEliminar);
+                System.out.println("Plato eliminado: " + nombreEliminar);
                 break;
-            case 3:
-                agregarPlatoACategoria(menu);
-                break;
+            default:
+                System.out.println("Opción no válida.");
         }
     }
 
-    private void agregarPlatoACategoria(Menu menu) {
-        List<Categoria> categorias = menu.getCategorias();
-        System.out.println("Seleccione una categoría:");
-        for (int i = 0; i < categorias.size(); i++) {
-            System.out.printf("%d) %s\n", i + 1, categorias.get(i).getNombre());
-        }
-
-        int categoriaSeleccionada = scanner.nextInt() - 1;
-        scanner.nextLine(); // Consumir salto de línea
-
-        if (categoriaSeleccionada >= 0 && categoriaSeleccionada < categorias.size()) {
-            Categoria categoria = categorias.get(categoriaSeleccionada);
-
-            System.out.print("Nombre del plato: ");
-            String nombre = scanner.nextLine();
-            System.out.print("Descripción: ");
-            String descripcion = scanner.nextLine();
-            System.out.print("Precio: ");
-            double precio = scanner.nextDouble();
-            System.out.print("¿Contiene alérgenos? (true/false): ");
-            boolean alergenos = scanner.nextBoolean();
-
-            Plato nuevoPlato = new Plato(nombre, descripcion, precio, alergenos);
-            categoria.agregarItem(nuevoPlato);
-            System.out.println("Plato agregado con éxito");
-        }
+    public void verificarEstadoPedido(Pedido pedido) {
+        pedidoCtrl.mostrarEstadoPedido(pedido);
     }
 
-    public void gestionarCupones() {
-        System.out.println("\n*** GESTIONAR CUPONES ***");
-        System.out.println("1) Ver cupones");
-        System.out.println("2) Crear cupón de descuento fijo");
-        System.out.println("3) Crear cupón de descuento porcentual");
+    public void cambiarEstadoPedido(Pedido pedido) {
+        System.out.println("Ingrese el nuevo estado del pedido:");
+        String nuevoEstado = scanner.nextLine();
+        pedidoCtrl.cambiarEstadoPedido(pedido, nuevoEstado);
+    }
 
-        int opcion = scanner.nextInt();
-        scanner.nextLine(); // Consumir salto de línea
+    public void cobrarCliente(Pedido pedido) {
+        System.out.println("Método de pago: 1. Tarjeta de Crédito 2. Tarjeta de Débito 3. MercadoPago 4. Efectivo");
+        int metodoSeleccionado = scanner.nextInt();
+        IPago pago = null;
+        System.out.println("Monto a pagar: $" + pedido.getTotal());
 
-        switch(opcion) {
+        switch (metodoSeleccionado) {
             case 1:
-                mostrarCupones();
+                pago = new PagoTarjetaCredito(pedido.getTotal());
                 break;
             case 2:
-                crearCuponFijo();
+                pago = new PagoTarjetaDebito(pedido.getTotal());
                 break;
             case 3:
-                crearCuponPorcentual();
+                pago = new PagoMercadoPago(pedido.getTotal());
                 break;
+            case 4:
+                System.out.println("Ingrese el monto con el que abona el cliente:");
+                double montoAbonado = scanner.nextDouble();
+                pago = new PagoEfectivo(montoAbonado);
+                double vuelto = montoAbonado - pedido.getTotal();
+                System.out.println("Vuelto a entregar: $" + vuelto);
+                break;
+            default:
+                System.out.println("Método de pago no válido.");
+                return;
         }
-    }
 
-    private void mostrarCupones() {
-        System.out.println("\nCupones disponibles:");
-        for (Map.Entry<String, ICupon> entrada : cupones.entrySet()) {
-            System.out.println("Código: " + entrada.getKey() + " - " + entrada.getValue().getDescripcion());
+        if (pago != null && pagoCtrl.procesarPago(pedido, pago)) {
+            Notificacion.enviarNotificacion(pedido.getCliente(), "Pago realizado con éxito. Su pedido está listo para ser entregado.");
+            pedidoCtrl.cambiarEstadoPedido(pedido, "Entregado");
+        } else {
+            System.out.println("Pago rechazado. Intente nuevamente.");
         }
-    }
-
-    private void crearCuponFijo() {
-        System.out.print("Código del cupón (letras mayúsculas): ");
-        String codigo = scanner.nextLine().toUpperCase();
-        System.out.print("Monto de descuento: $");
-        double monto = scanner.nextDouble();
-
-        cupones.put(codigo, new DescuentoFijo(monto));
-        System.out.println("Cupón de descuento fijo creado: " + codigo);
-    }
-
-    private void crearCuponPorcentual() {
-        System.out.print("Código del cupón (letras mayúsculas): ");
-        String codigo = scanner.nextLine().toUpperCase();
-        System.out.print("Porcentaje de descuento: ");
-        double porcentaje = scanner.nextDouble();
-
-        cupones.put(codigo, new DescuentoPorPorcentaje(porcentaje));
-        System.out.println("Cupón de descuento porcentual creado: " + codigo);
-    }
-
-    public ICupon validarCupon(String codigo) {
-        return cupones.get(codigo.toUpperCase());
     }
 }
