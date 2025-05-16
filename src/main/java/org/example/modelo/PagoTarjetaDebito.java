@@ -1,6 +1,6 @@
 package main.java.org.example.modelo;
 
-public class PagoTarjetaDebito implements IPago{
+public class PagoTarjetaDebito implements IPago {
     private double monto;
 
     public PagoTarjetaDebito(double monto) {
@@ -9,12 +9,12 @@ public class PagoTarjetaDebito implements IPago{
 
     @Override
     public boolean procesarPago(double monto) {
-        // Lógica para procesar pago con tarjeta de crédito
+        // Lógica para procesar pago con tarjeta de débito
         return true;
     }
 
     @Override
     public String getMetodo() {
-        return "Tarjeta de Crédito";
+        return "Tarjeta de Débito"; // Corregido de "Tarjeta de Crédito"
     }
 }
