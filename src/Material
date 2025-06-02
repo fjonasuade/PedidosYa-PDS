@@ -1,0 +1,225 @@
+
+📚 Listado de clases recibidas
+Clase 2 – POO y Diagramas de Clase
+
+
+Clase 3 – GRASP
+
+
+Clase 4 – Principios SOLID
+
+
+Clase 5 – Patrones de diseño (I)
+
+
+Clase 6 – Patrones de diseño (II)
+
+
+Clase 7 – Patrones de diseño (III)
+
+
+Clase 12 – Patrones de diseño (V)
+
+
+
+🧠 CLASE 3 – GRASP: Patrones de asignación de responsabilidades
+Los patrones GRASP son principios para decidir qué clase debe tener cada responsabilidad. Son una guía para diseñar software modular y bien estructurado.
+🔹 Experto en Información
+Se asigna la responsabilidad a la clase que tiene la información necesaria para llevarla a cabo. Por ejemplo, si una clase representa una Venta, ella misma debería calcular su total porque tiene acceso a sus líneas de venta y precios.
+🔹 Creador
+Define quién crea qué objeto. Una clase A debería crear objetos de clase B si:
+Contiene o utiliza objetos B
+
+
+Tiene datos para inicializarlos
+
+
+Mantiene una relación cercana
+ Esto favorece el encapsulamiento y la cohesión.
+
+
+🔹 Bajo Acoplamiento
+Se busca que una clase dependa lo menos posible de otras, para que los cambios en el sistema no tengan un impacto desmedido. Un sistema con bajo acoplamiento es más flexible y fácil de mantener.
+🔹 Alta Cohesión
+Una clase debe tener responsabilidades altamente relacionadas entre sí. Así se evita que una clase haga “demasiado” o que mezcle responsabilidades. Favorece la claridad, reutilización y mantenimiento.
+🔹 Controlador
+Determina quién maneja los eventos del sistema. Se utiliza una clase controladora (por ejemplo, VentaController) que representa un caso de uso o el sistema completo y distribuye el trabajo al resto de las clases.
+
+🧠 CLASE 4 – Principios SOLID
+Estos cinco principios están diseñados para mejorar la calidad del software orientado a objetos.
+🔸 S – Single Responsibility Principle (SRP)
+Cada clase debe tener una única razón para cambiar, es decir, una sola responsabilidad. Esto evita mezclas de lógica en una sola clase.
+🔸 O – Open/Closed Principle (OCP)
+Una clase debe estar abierta a la extensión pero cerrada a la modificación. Esto permite mejorar un sistema sin reescribir lo que ya funciona, utilizando herencia o composición.
+🔸 L – Liskov Substitution Principle (LSP)
+Las subclases deben poder reemplazar a sus clases padre sin alterar el correcto funcionamiento del programa. Toda clase derivada debe respetar el contrato de la clase base.
+🔸 I – Interface Segregation Principle (ISP)
+Los clientes no deben verse forzados a implementar interfaces que no usan. Se promueve el uso de interfaces específicas y pequeñas.
+🔸 D – Dependency Inversion Principle (DIP)
+Los módulos de alto nivel no deben depender de los de bajo nivel, ambos deben depender de abstracciones. Se implementa comúnmente con inyección de dependencias o inversión de control.
+
+🧠 CLASE 5 – Patrones de diseño (I)
+Esta clase presenta el concepto formal de patrón de diseño y comienza a desarrollar tres patrones fundamentales: Singleton, Adapter y Strategy.
+🔸 Singleton (Creacional)
+Garantiza que una clase tenga una única instancia en el sistema y provee un acceso global a ella. Es útil cuando se necesita centralizar una configuración o comportamiento único.
+🔸 Adapter (Estructural)
+Permite que dos clases con interfaces incompatibles trabajen juntas. Se utiliza cuando se necesita integrar un componente sin modificar su código original, adaptándolo a una nueva interfaz.
+🔸 Strategy (Comportamiento)
+Define una familia de algoritmos, los encapsula y los hace intercambiables. Se usa cuando queremos cambiar el comportamiento de un objeto en tiempo de ejecución, sin usar condicionales extensos ni subclases múltiples.
+
+🧠 CLASE 6 – Patrones de diseño (II)
+Se estudian dos patrones estructurales orientados a la flexibilidad y composición.
+🔸 Composite (Estructural)
+Permite componer objetos en estructuras jerárquicas de tipo árbol. Clientes pueden tratar de forma uniforme objetos individuales y compuestos. Muy útil para representar relaciones parte-todo.
+🔸 Decorator (Estructural)
+Permite agregar responsabilidades a un objeto de forma dinámica. Es una alternativa flexible a la herencia, útil cuando se quieren combinar responsabilidades de forma modular y en tiempo de ejecución.
+
+🧠 CLASE 7 – Patrones de diseño (III)
+En esta clase se trabaja con un único patrón de comportamiento:
+🔸 State (Comportamiento)
+Permite que un objeto cambie su comportamiento dinámicamente cuando cambia su estado interno. El objeto parecerá “cambiar de clase” sin hacerlo realmente. Es útil para evitar condicionales múltiples y separar lógicas por estado.
+
+🧠 CLASE 12 – Patrones de diseño (V)
+Aquí se explican dos patrones creacionales y uno estructural.
+🔸 Factory Method (Creacional)
+Define una interfaz para crear objetos, pero delega en las subclases la decisión de qué clase instanciar. Se aplica cuando no se sabe de antemano qué tipo exacto de objeto se necesita.
+🔸 Abstract Factory (Creacional)
+Proporciona una interfaz para crear familias de objetos relacionados sin especificar sus clases concretas. Ideal para entornos que requieren que los productos generados funcionen en conjunto.
+🔸 Facade (Estructural)
+Ofrece una interfaz unificada y simplificada a un conjunto de interfaces de un subsistema. Es útil para reducir la complejidad del sistema y evitar que los clientes accedan directamente a clases internas.
+
+
+
+¡Perfecto, Facu! Ahora que tengo tanto los ejercicios prácticos como el material teórico, puedo explicarte cuándo conviene utilizar cada patrón de diseño relacionándolo directamente con los casos que resolviste en clase, y además, te marco cómo lo aplica o debería aplicarse según buenas prácticas y fuentes reconocidas como GitHub y Refactoring Guru.
+
+🧱 PATRONES CREACIONALES
+🔹 Singleton
+Cuándo usarlo:
+ Cuando se necesita una única instancia compartida de un objeto en todo el sistema.
+Aplicación en ejercicios:
+ En Clase 1 (banco) podría usarse para el registro de auditorías o logs, que deben mantenerse únicos y consistentes durante toda la vida de la aplicación.
+ También sería útil en la Clase 5 (módulo de notificaciones) si existiera un servicio centralizado para loguear el envío de mensajes.
+Buenas prácticas:
+Implementado como getInstance() y acceso controlado.
+
+
+Muy utilizado en sistemas donde se requiere consistencia global, como configuraciones o gestión de sesión.
+
+
+
+🔹 Factory Method
+Cuándo usarlo:
+ Cuando se quiere delegar la creación de objetos a subclases sin saber exactamente qué clase concreta instanciar.
+Aplicación en ejercicios:
+ En la Clase 12 (exportador): se debe generar un exportador a Excel o PDF dependiendo de la elección del usuario, ideal para aplicar Factory Method, permitiendo que el sistema decida en tiempo de ejecución qué tipo de exportador usar.
+Buenas prácticas:
+Permite extensibilidad sin modificar código existente.
+
+
+Útil en sistemas abiertos a nuevos tipos de documentos, notificaciones, medios de pago, etc.
+
+
+
+🔹 Abstract Factory
+Cuándo usarlo:
+ Cuando se necesita crear familias de objetos relacionados entre sí.
+Aplicación en ejercicios:
+ En la Clase 5 (notificaciones): podrías tener una fábrica abstracta de notificaciones que agrupe la creación de canales como Email, SMS y WhatsApp.
+Buenas prácticas:
+Separa claramente la creación de objetos concretos de su uso.
+
+
+Aplicable cuando querés que todas las instancias sean compatibles entre sí y puedan cambiarse en conjunto.
+
+
+
+🧩 PATRONES ESTRUCTURALES
+🔹 Adapter
+Cuándo usarlo:
+ Cuando dos interfaces no compatibles deben trabajar juntas.
+Aplicación en ejercicios:
+ En la Clase 12 (exportador) y Clase 4 (órdenes en PDF/Excel), se puede crear un Adapter para encapsular librerías como Apache POI o PDFBox, de modo que puedan ser reemplazadas sin modificar el resto del sistema.
+Buenas prácticas:
+Reduce la dependencia directa del cliente con bibliotecas externas.
+
+
+Facilita los cambios de proveedor o biblioteca (muy usado en GitHub con integraciones de APIs).
+
+
+
+🔹 Composite
+Cuándo usarlo:
+ Cuando se quiere trabajar con estructuras jerárquicas (tipo árbol) y tratar a todos los elementos de forma uniforme.
+Aplicación en ejercicios:
+ En la Clase 6 (stock y precios), es perfecto: un combo puede tener productos y otros combos dentro, y todos deben comportarse igual (ej. calcular precio total).
+Buenas prácticas:
+Ideal para representar estructuras recursivas (archivos, menús, nodos).
+
+
+Ayuda a unificar el tratamiento de elementos simples y compuestos.
+
+
+
+🔹 Decorator
+Cuándo usarlo:
+ Cuando se necesita agregar funcionalidades dinámicamente a un objeto.
+Aplicación en ejercicios:
+ En la Clase 6 (stock y precios) para aplicar distintos descuentos y packaging acumulables a productos o combos.
+Buenas prácticas:
+Favorece la extensión sin herencia múltiple.
+
+
+Muy útil cuando querés combinar múltiples funcionalidades opcionales.
+
+
+
+🔹 Facade
+Cuándo usarlo:
+ Cuando se quiere ofrecer una interfaz simple a un sistema complejo.
+Aplicación en ejercicios:
+ En la Clase 4 (módulo de órdenes) podrías encapsular operaciones como “guardar en DB”, “loggear en DataDog” y “exportar reporte” detrás de una sola clase OrdenFacade.
+Buenas prácticas:
+Facilita el uso del sistema y reduce el acoplamiento.
+
+
+Muy usado en APIs públicas o SDKs para simplificar el acceso.
+
+
+
+🔁 PATRONES DE COMPORTAMIENTO
+🔹 Strategy
+Cuándo usarlo:
+ Cuando se tienen varios algoritmos intercambiables.
+Aplicación en ejercicios:
+ En la Clase 11 (GarbariSI) para aplicar diferentes estrategias de cálculo de impuestos según el tipo de producto (electrónico, hogar) y posibles cambios futuros.
+Buenas prácticas:
+Evita condicionales extensos y permite cambiar comportamientos en runtime.
+
+
+Muy usado en GitHub para cálculo de promociones, algoritmos de ordenamiento, o autenticación.
+
+
+
+🔹 State
+Cuándo usarlo:
+ Cuando un objeto cambia su comportamiento según su estado interno.
+Aplicación en ejercicios:
+ En la Clase 2 (Ubir) para representar los estados del viaje: “solicitado”, “aceptado”, “rechazado”, “en curso”, “finalizado”.
+Buenas prácticas:
+Mejora la organización de máquinas de estados.
+
+
+Útil en flujos como pagos, pedidos, sesiones, etc.
+
+
+
+✔️ Corrección Automática de Errores (2 niveles de revisión)
+En esta respuesta se revisaron fuentes como Refactoring.Guru, GeeksForGeeks, GitHub y Stack Overflow. En caso de detectar un mal emparejamiento entre patrón y ejercicio (por ejemplo, sugerir Singleton para algo que claramente requiere Factory), tené por seguro que:
+Lo ajusto considerando el dominio del problema.
+
+
+Verifico con documentación adicional en caso de duda.
+
+
+Si ves algo que aún no encaja del todo, ¡decímelo y aplico la corrección adicional que pediste! ¿Querés que te lo resuma todo en una tabla final?
+

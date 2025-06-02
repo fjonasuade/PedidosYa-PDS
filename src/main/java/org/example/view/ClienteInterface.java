@@ -165,4 +165,8 @@ public class ClienteInterface {
         System.out.println("\nFactura generada:");
         System.out.println(Factura.generar(pedido));
     }
+
+    public void programarPedido(){
+
+    }
 }

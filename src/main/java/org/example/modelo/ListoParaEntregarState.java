@@ -7,4 +7,9 @@ public class ListoParaEntregarState implements PedidoState {
     @Override public void notificar(Pedido pedido) {
         pedido.getNotifier().notifyAll(pedido, "Su pedido está listo para entregar.");
     }
+    @Override
+    public int calcularTiempoRestante(Pedido pedido, int pedidosTotales, boolean esDelivery, int tiempoRappi) {
+        return esDelivery ? tiempoRappi : 0;
+    }
 }
+

@@ -1,0 +1,78 @@
+ONTEXTO
+Hemos sido contratados para diseñar y desarrollar un sistema de menú y pedidos para
+un restaurante que desea mejorar la experiencia del cliente y optimizar la gestión
+interna. Para ello, necesitan un sistema que permita a los clientes consultar el menú,
+realizar pedidos online y recibir notificaciones sobre el estado de su pedido. Además,
+el sistema debe permitir gestionar pedidos, actualizar el menú y generar reportes de
+venta. En esta primera etapa, nos solicitan los requerimientos que se detallan a
+continuación.
+REQUERMIENTOS
+Cada restaurante contará con un menú digital donde se mostrarán las categorías de
+productos disponibles, como entradas, platos principales, postres y bebidas. Cada plato
+del menú incluirá su descripción, precio y una indicación sobre posibles ingredientes
+alergénicos. Los clientes podrán navegar por el menú y seleccionar los productos que
+deseen agregar a su pedido.
+Una vez que el cliente haya seleccionado los productos, el sistema calculará
+automáticamente el total del pedido y ofrecerá distintas opciones de pago. En este
+punto, los clientes podrán también ingresar cupones de descuento, que el sistema
+deberá validar para aplicarlos. Luego, los clientes podrán elegir entre pagar con tarjeta
+de crédito o débito.
+Cuando un pedido sea confirmado, se asignará un número de orden y su estado inicial
+será "En espera". A medida que el pedido avanza en la cocina, su estado cambiará a "En
+preparación", "Listo para entregar" o "Entregado". Dado que se prevé utilizar este
+sistema en el salón en el corto plazo, el cambio de estado puede ser realizado por
+chefs, meseros o administrativos del restaurante. Además, los meseros podrán ser
+notificados cuando un pedido está listo para entregar para buscarlo a la cocina.
+Para mejorar la experiencia del usuario, el sistema enviará notificaciones automáticas
+cuando el pedido cambie de estado. Los clientes recibirán alertas en su aplicación o
+correo electrónico cuando su pedido esté listo para recoger o cuando el delivery esté
+en camino. En este punto, cuando el pedido se entregue el sistema generará una
+factura que será enviada al cliente por mail.
+CONSIGNAS
+• Iteración inicial del diagrama de clases del sistema (solo capa de dominio, no se
+solicita la creación de una interfaz gráfica ni de una base de datos).
+• Implementación en el lenguaje de programación (orientado a objetos) de su
+elección del diagrama de clases propuesto, mostrando el funcionamiento a
+través de Tests Unitarios
+
+
+
+------------------------------2----------------------------------------------------
+Hemos sido contratados para diseñar y desarrollar un sistema de menú y pedidos para
+un restaurante que desea mejorar la experiencia del cliente y optimizar la gestión
+interna. Para ello, necesitan un sistema que permita a los clientes consultar el menú,
+realizar pedidos online y recibir notificaciones sobre el estado de su pedido. Además,
+el sistema debe permitir gestionar pedidos, actualizar el menú y generar reportes de
+venta. En esta primera etapa, nos solicitan los requerimientos que se detallan a
+continuación.
+REQUERMIENTOS
+En esta nueva iteración, se nos pide agregar la posibilidad de pagar con MercadoPago,
+Google Pay y en efectivo. En este único caso, se aplica un descuento del 10% sobre el
+total del pedido. Además, se permitirá que los clientes programen pedidos para más
+tarde (por ejemplo, pedir una pizza hoy a las 20:00), y que el sistema los active
+automáticamente.
+Por otro lado, el cliente confirma que nuestro sistema podrá ser utilizado en dos
+plataformas distintas: tótem o aplicación mobile en tablets. En el caso del tótem, que es
+un dispositivo que se encontrará únicamente en el local, se omite la validación de
+cupones de descuento y notificaciones a empleados del local.
+Para mejorar la experiencia del cliente, se permitirá mostrar en el sistema el tiempo
+restante estimado para que el pedido esté listo. En esta segunda iteración, el tiempo
+restante cuando el pedido está “en espera” se calcula en función de la cantidad de
+pedidos totales en el restaurante. Cada 10 pedidos, el tiempo de espera se incrementa
+en 20 minutos. Caso contrario, el tiempo de espera es de 5 minutos. Cuando el pedido
+está “en preparación”, el tiempo está comprendido por la suma de platos del pedido,
+cada uno de los cuales posee un tiempo estimado de preparación. En el caso del
+estado “listo para entregar” el tiempo estimado se calcula, en caso de ser modalidad
+delivery, según el tiempo que la API de Rappi devuelve. Caso contrario, el tiempo
+estimado es 0.
+Por último, es necesario que los pedidos puedan cancelarse solo si se encuentran en
+estado de “en espera” o “en preparación”. A su vez, se pueden agregar productos al
+pedido si el estado es “en espera” únicamente. En el primer caso, se deberá
+reembolsar el 75% del valor del pedido. En el segundo, se deberá cobrar nuevamente
+los productos agregados.
+CONSIGNAS
+• Iteración final del diagrama de clases del sistema (solo capa de dominio, no se
+solicita la creación de una interfaz gráfica ni de una base de datos).
+• Implementación en el lenguaje de programación (orientado a objetos) de su
+elección del diagrama de clases propuesto, mostrando el funcionamiento a
+través de Tests Unitarios

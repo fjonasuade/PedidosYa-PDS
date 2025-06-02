@@ -254,4 +254,59 @@ public class EmpleadoInterface {
     public ICupon validarCupon(String codigo) {
         return cupones.get(codigo != null ? codigo.toUpperCase() : null);
     }
+
+    /**
+     * Menú para gestionar platos en la base de datos (TOKEN)
+     */
+    public void gestionarPlatos() {
+        boolean continuar = true;
+        while (continuar) {
+            System.out.println("\n===== GESTIÓN DE PLATOS (TOKEN) =====");
+            System.out.println("1. Listar platos actuales");
+            System.out.println("2. Agregar nuevo plato");
+            System.out.println("3. Eliminar plato");
+            System.out.println("4. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            int opcion = scanner.nextInt();
+            scanner.nextLine();
+            switch (opcion) {
+                case 1: listarPlatos(); break;
+                case 2: agregarPlato(); break;
+                case 3: eliminarPlato(); break;
+                case 4: continuar = false; break;
+                default: System.out.println("Opción inválida");
+            }
+        }
+    }
+
+    private void listarPlatos() {
+        System.out.println("\n--- Platos en Base de Datos ---");
+        for (Plato p : BaseDeDatos.getPlatos()) {
+            System.out.printf("- %s: $%.2f | %s%s\n", p.getNombre(), p.getPrecio(), p.getDescripcion(), p.contieneAlergenos() ? " [Alérgenos]" : "");
+        }
+    }
+
+    private void agregarPlato() {
+        System.out.print("Nombre del plato: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Descripción: ");
+        String descripcion = scanner.nextLine();
+        System.out.print("Precio: $");
+        double precio = scanner.nextDouble();
+        scanner.nextLine();
+        System.out.print("¿Contiene alérgenos? (s/n): ");
+        boolean alergenos = scanner.nextLine().equalsIgnoreCase("s");
+        // Eliminar el campo tiempo, ya que Plato solo acepta 4 argumentos
+        Plato nuevo = new Plato(nombre, descripcion, precio, alergenos);
+        BaseDeDatos.agregarPlato(nuevo);
+        System.out.println("Plato agregado correctamente.");
+    }
+
+    private void eliminarPlato() {
+        System.out.print("Nombre del plato a eliminar: ");
+        String nombre = scanner.nextLine();
+        BaseDeDatos.eliminarPlato(nombre);
+        System.out.println("Plato eliminado si existía.");
+    }
 }
+

@@ -8,3 +8,8 @@ public class EnEsperaState implements PedidoState {
         pedido.getNotifier().notifyAll(pedido, "Su pedido está en espera.");
     }
 }
+// src/main/java/org/example/modelo/EnEsperaState.java
+@Override
+public int calcularTiempoRestante(Pedido pedido, int pedidosTotales, boolean esDelivery, int tiempoRappi) {
+    return pedidosTotales >= 10 ? 5 + ((pedidosTotales / 10) * 20) : 5;
+}
